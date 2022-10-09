@@ -1,0 +1,243 @@
+\documentclass[12pt]{article}
+\setlength\parindent{0pt}
+\usepackage{amsfonts}
+\usepackage{comment}
+\usepackage{tikz}
+\usepackage{forest}
+\usepackage{amsmath}
+\usetikzlibrary{arrows,automata}
+
+% Found this on Stackoverflow, seems to make a better explicit space than the default
+% "\textvisiblespace" does, so I used \Vtextvisiblespace instead.
+% https://tex.stackexchange.com/questions/50804/explicit-space-character
+\newcommand\Vtextvisiblespace[1][.8em]{%
+	\mbox{\kern.07em\vrule height.3ex}%
+	\vbox{\hrule width#1}%
+	\hbox{\vrule height.3ex}}
+
+% Also found this on Stackoverflow for making tabs.
+% https://tex.stackexchange.com/questions/198432/using-the-tab-command
+\newcommand\tab[1][1cm]{\hspace*{#1}}
+
+\begin{document}
+
+\noindent
+Jason Downing \\
+Email: jason\_downing@student.uml.edu \\
+Foundations of Computer Science \\
+Homework \# - Chapter 4 + Chapter 5 \\
+12/1/2016 \\
+
+%*********************************************************************************
+% Extra Credit Documentation!
+%*********************************************************************************
+**********************************************************************************
+Since I started this assignment early, and I had some time left before the assignment
+was due, I decided to do the following \textbf{Extra Credit} problems: \\
+
+1. ?? \\
+
+These problems are at the end of my PDF in the "\textbf{Extra Credit}" section.
+
+********************************************************************************** \\
+
+%*********************************************************************************
+%*			Chapter 4 starts here!
+%*********************************************************************************
+% 4.2
+\textbf{4.2} Consider the problem of determining whether a $DFA$ and a regular \\
+expression are equivalent. Express this problem as a language and show that it is decidable. \\
+
+We can describe this problem as the language: \\
+$AB_{DFA,REX} = \{ \langle D, R \rangle | D $
+is a DFA, R is a regular expression and $L(D) = L(R) \}$. The following Turing Machine (TM)
+M decides $AB_{DFA,REX}$: \\
+
+$M = $ "On input $\langle D, R \rangle$:
+\begin{enumerate}
+	\item Convert the regular expression $R$ to an equivalent DFA $A$ using the procedure that is given in Theorem 1.28.
+	\item Use the TM $C$ for deciding $AB_{DFA,REX}$ in Theorem 4.5, on input $\langle D, A \rangle$.
+	\item If R accepts, $accept$.
+	\item If R rejects, $reject$."
+\end{enumerate}
+
+%*********************************************************************************
+% 4.3
+\pagebreak
+\textbf{4.3} Let $ALL_{DFA}$ = $\{ \langle A \rangle | A$ is a $DFA$ and $L(A) = \sum^*\}$.
+Show that $ALL_{DFA}$ is decidable. \\
+
+Let $ALL_{DFA}$ = $\{ \langle A \rangle | A$ is a $DFA$ that recognizes $\sum^*$. The TM M
+decides $ALL_{DFA}$:
+
+M = "On input $\langle A \rangle$ where A is a DFA:
+\begin{enumerate}
+	\item Construct DFA B that recognizes $\overline{L(A)}$ which is described in the 1.10 exercise.
+	\item Run TM T from Theorem 4.4 on the input  $\langle B \rangle$, where T will decide $E_DFA$.
+	\item If T accepts, $accept$.
+	\item If T rejects, $reject$."
+\end{enumerate}
+
+%*********************************************************************************
+% 4.4
+\textbf{4.4} Let $A\epsilon_{CFG}$ = $\{ \langle G \rangle | G$ is a $CFG$ that generates $\epsilon \}$.
+Show that $A\epsilon_{CFG}$ is decidable. \\
+
+Let $A\epsilon_{CFG}$ = $\{ \langle G \rangle | G$ is a $CFG$ that generates $\epsilon \}$.
+The following TM M will decide $A\epsilon_{CFG}$:
+
+M = "On input $\langle G \rangle$ where $G$ is a CFG:
+\begin{enumerate}
+	\item Run TM S from Theorem 4.6 on input $\langle G, \epsilon \rangle$, where $S$ is a decider for $A\epsilon_{CFG}$.
+	\item If S accepts, $accept$.
+	\item If S rejects, $reject$."
+\end{enumerate}
+
+%*********************************************************************************
+% 4.6
+\pagebreak
+\textbf{4.6} Let $X$ be the set $\{1, 2, 3, 4 ,5 \}$ and let $Y$ be the set $\{6, 7, 8, 9, 10 \}$.
+We describe the functions $f: X \rightarrow Y$ and $g: X \rightarrow Y$ in the following tables.
+Answer each part and give a reason for each negative answer. \\
+
+\begin{center}
+\begin{tabular}{l|l}
+	n & $f(n)$ \\ \hline
+	1 & 6      \\
+	2 & 7      \\
+	3 & 6      \\
+	4 & 7      \\
+	5 & 6      \\
+\end{tabular}
+\quad \quad
+\begin{tabular}{l|l}
+	n & $g(n)$ \\ \hline
+	1 & 10     \\
+	2 & 9      \\
+	3 & 8      \\
+	4 & 7      \\
+	5 & 6      \\
+\end{tabular}
+\end{center}
+
+
+\textbf{a.} Is $f$ one-to-one? \\
+\textbf{\underline{Answer:}} No, $f$ is not one-to-one because we can find a case that shows \\
+it is not. Which is when $f(1) = f(3)$, as well as $f(2) = f(4)$ and $f(3) = f(5)$. \\
+
+\textbf{b.} Is $f$ onto? \\
+\textbf{\underline{Answer:}} No, $f$ is not onto because there is no case that exists where $x \in X$
+is $f(x) = 10$. \\
+
+\textbf{c.} Is $f$ a correspondence? \\
+\textbf{\underline{Answer:}} No, $f$ is not a correspondence because $f$ is not one-to-one and onto.
+
+\textbf{d.} Is $g$ one-to-one? \\
+\textbf{\underline{Answer:}} Yes, $g$ is one-to-one. \\
+
+\textbf{e.} Is $g$ onto? \\
+\textbf{\underline{Answer:}} Yes, $g$ is onto. \\
+
+\textbf{f.} Is $g$ a correspondence? \\
+\textbf{\underline{Answer:}} Yes, $g$ is a correspondence because $g$ is one-to-one and onto. \\
+
+%*********************************************************************************
+% 4.7
+\pagebreak
+\textbf{4.7} Let $\mathcal{B}$ be the set of all infinite sequences over $\{0, 1\}$. 
+Show that $\mathcal{B}$ is uncountable using a proof by diagonalization. \\
+
+We can assume that $B$ is countable, and that a correspondence $f:\mathcal{N} \rightarrow \mathcal{B}$
+exists. We can then construct $x$ in $\mathcal{B}$ that does not pair with anything in $\mathcal{N}$.
+We can then let $x = x_1, x_2, ...$. Let $x_i = 0$ if we find that $f(i)_i) = 1$, and we can also say that
+$x_i = 1$ if we find that $f(i)_i = 0$ where $f(i)_i$ is the $i$th bit of $f(i)$. This will let us make
+sure that $x$ is not in $f(i)$ for any $i$ because it is different then the $f(i$ in the $i$th symbol.
+As a result, a contradiction will occur, and this proves that $\mathcal{B}$ is uncountable. \\
+
+%*********************************************************************************
+% 4.8
+\textbf{4.8} Let $T = \{(i, j, k)| i, j, k \; \in \; \mathcal{N}\}$. Show that $T$ is countable. \\
+
+We can demonstrate that $T$ is one-to-one with the following function:
+$f: T \rightarrow \mathcal{N}$. We can let $f(i, j, k) = 2^i 3^j 5^k$. The function
+$f$ is one-to-one because when $a \ne b$, $f(a) \ne f(b)$. As a result, $T$ is countable.
+
+%*********************************************************************************
+%*			Chapter 5 starts here!
+%*********************************************************************************
+
+%*********************************************************************************
+% 5.1
+\pagebreak
+\textbf{5.1} Show that $EQ_{CFG}$ is undecidable. \\
+
+ We can show that $EQ_{CFG}$ is undecidable by showing a contradiction for $EQ_{CFG}$
+that is decidable. We can construct a decider, $D$, for $ALL_{CFG}$ = 
+$\{ \langle G \rangle | G$ is a $CFG$ and $L(G) = \sum^* \}$ that is as follows: \\
+
+$D = $ "On input $ \langle G \rangle $:
+\begin{enumerate}
+	\item Construct a CFG C such that $L(C) = \sum^*$.
+	\item Run the decider for $EQ_{CFG}$ on the input $ \langle G, C \rangle $
+	\item If it accepts, we $accept$.
+	\item If it rejects, we $reject$." \\
+\end{enumerate}
+
+
+%*********************************************************************************
+% 5.2
+\textbf{5.2} Show that $EQ_{CFG}$ is co-Turing-recognizable. \\
+
+We can show that $EQ_{CFG}$ is co-Turing-recognizable by showing a Turing Machine (TM)
+T which will recognize the complement of $EQ_{CFG}$: \\
+
+$T = $ "On input $ \langle G, H \rangle $:
+\begin{enumerate}
+	\item Generate the strings $x \in \sum^*$ lexicographically.
+	\item Test each string $x$ and see whether $x \in L(G)$ and $x \in L(H)$ are true, using the algorithm for $A_{CFG}$.
+	\item If we find that one of the tests accepts, and the other rejects, then we mark it as $accept$.
+	\item Otherwise, we continue." \\
+\end{enumerate}
+
+%*********************************************************************************
+% 5.3
+\pagebreak
+\textbf{5.3} \; Find a match in the following instance of the \\
+\tab Post Correspondence Problem:
+
+\begin{center}
+	$\{ [ \dfrac{ab}{abab} ], [ \dfrac{b}{a} ], [ \dfrac{aba}{b} ], [ \dfrac{aa}{a} ] \}$ \\
+\end{center}
+
+One possible match is:
+\begin{center}
+	$ [ \dfrac{ab}{abab} ] \quad [ \dfrac{ab}{abab} ] \quad [ \dfrac{aba}{b} ] \quad [ \dfrac{b}{a} ]
+\quad [ \dfrac{b}{a} ]     \quad [ \dfrac{aa}{a} ]    \quad [ \dfrac{aa}{a} ]  $
+\end{center}
+
+% add another line to make the PDF look pretty.
+\leavevmode \newline
+
+%*********************************************************************************
+% 5.4
+\textbf{5.4} If $A \le_m B$, and B is a regular language, does that imply that A is
+a regular language? Why, or why not? \\
+
+\textbf{\underline{Answer:}} No, this does not implty that A is a regular language.
+One example that shows it is not a regular language is: 
+$\{ a^n b^n c^n | \; n \; \ge 0 \} \le_m \{ a^n b^n | \; n \; \ge 0 \}$ \\ \\
+The reduction is what first tests whether the input is a member of 
+$\{ a^n b^n c^n | \; n \; \ge 0 \}$. If it is a member, then it outputs the string
+$ab$, and if it is not a member then it just outputs the string $a$.
+
+%*********************************************************************************
+% Extra Credit Section!
+%*********************************************************************************
+\pagebreak
+**********************************************************************************
+
+\tab\tab\tab \textbf{EXTRA CREDIT SECTION BEGINS HERE}
+
+**********************************************************************************
+
+\end{document}
